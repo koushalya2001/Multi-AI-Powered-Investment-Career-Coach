@@ -1,0 +1,6 @@
+streamlit==1.35.0
+google-genai==0.3.0
+google-cloud-discoveryengine==0.11.3
+google-cloud-dialogflow-cx==1.38.0
+requests==2.31.0
+python-dotenv==1.0.1
