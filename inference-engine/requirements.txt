@@ -4,3 +4,4 @@ google-cloud-discoveryengine==0.11.3
 google-cloud-dialogflow-cx==1.38.0
 requests==2.31.0
 python-dotenv==1.0.1
+mcp>=1.28.0,<2.0.0

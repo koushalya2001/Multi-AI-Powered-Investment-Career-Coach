@@ -6,7 +6,6 @@ from src.inference.tools import (
     consult_junior_financial_advisor, 
     query_investment_knowledge_base, 
     query_mospi_live, 
-    query_insightlaw_live,
     get_constitution_article,     
     get_bns_section,              
     get_ipc_section,              
