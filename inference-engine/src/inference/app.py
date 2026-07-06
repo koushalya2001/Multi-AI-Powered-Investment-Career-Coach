@@ -2,17 +2,21 @@ import streamlit as st
 import logging
 from src.inference.workflow import MultiAgentSystem
 
-# Configure page
 st.set_page_config(page_title="AI Investment & Career Strategist", page_icon="📈", layout="wide")
 
-# Initialize backend system only once per session
 if "agent_system" not in st.session_state:
     st.session_state.agent_system = MultiAgentSystem()
 
 if "messages" not in st.session_state:
-    st.session_state.messages = [
-        {"role": "assistant", "content": "Welcome. I am your AI Strategist. Ask me about MSME manufacturing, AI career trends, or market risks. I will cross-reference live government data and corporate policies to build your strategy."}
-    ]
+    st.session_state.messages = [{"role": "assistant", "content": "Welcome. I am your AI Strategist. Please configure your profile in the sidebar, and let's begin."}]
+
+# --- NEW: Sidebar for User Context ---
+with st.sidebar:
+    st.header("⚙️ Strategy Parameters")
+    user_country = st.selectbox("Target Market / Region", ["India", "United States", "Global", "Southeast Asia"])
+    user_mode = st.select_slider("Strategy Mode", options=["Conservative", "Balanced", "Aggressive Growth"])
+    st.markdown("---")
+    st.markdown("**Active Integrations:**\n- MoSPI Gov Data\n- InsightLaw\n- Agent Garden\n- Vertex Knowledge Graph\n- **Google Search (Real-time)**")
 
 st.title("📈 AI Investment & Career Strategist")
 st.markdown("Powered by **Gemini 2.5 Flash**, **MoSPI MCP**, **InsightLaw**, and **Agent Garden**.")
@@ -53,7 +57,7 @@ if prompt := st.chat_input("E.g., Evaluate the legal and market risks of startin
     with st.spinner("Initiating Multi-Agent Workflow (Orchestrator ➔ Strategist ➔ Critic ➔ Synthesizer)..."):
         try:
             # Call the workflow
-            full_response = st.session_state.agent_system.run_workflow(prompt)
+            full_response = st.session_state.agent_system.run_workflow(prompt, user_country, user_mode)
             
             # Save to state
             st.session_state.messages.append({"role": "assistant", "content": full_response})
